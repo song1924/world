@@ -75,6 +75,9 @@
     display: none !important;
 }
 
-.App-table-msg {
-    padding-top: 1ex;
+.city-edit-form {
+    padding-top: 1.5em;
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
 }

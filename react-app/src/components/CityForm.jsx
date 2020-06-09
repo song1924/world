@@ -92,47 +92,50 @@ population
                     if (mode == "add") {
                         formRef.current.reset();
                         setResponseMessage(data.data.createCity.city.name + " is created.");
-                        setTimeout(function () {
-                            setResponseMessage("");
-                        }, 3000);
+                    } else {
+                        setResponseMessage("The city information has changed.");
                     }
+
+                    setTimeout(function () {
+                        setResponseMessage("");
+                    }, 3000);
                 }
             });
         setValidated(false);
         }
 
     // if only show variable is true, show the form.
-    if (show) {
-        return (
-            <div>
-                <Form inline noValidate validated={validated} onSubmit={handleSubmit} style={{ width: "100%" }} ref={formRef}>
-                    <Form.Row className="align-items-center">
-                        <Col xs="auto">
-                            <Form.Group controlId="formName">
-                                {formName}
-                            </Form.Group>
-                        </Col>
-                        <Col xs="auto">
-                            <Form.Group controlId="formDistrict">
-                                {formDistrict}
-                            </Form.Group>
-                        </Col>
-                        <Col xs="auto">
-                            <Form.Group controlId="formPopulation">
-                                {formPopulation}
-                            </Form.Group>
-                        </Col>
-                        <Col xs="auto">
-                            <Button className="mb-4" variant="success" type="submit">
-                                Submit
-                    </Button>
-                        </Col>
-                    </Form.Row>
-                </Form>
-                <p>{responseMessage}</p>
-            </div>
-        )
+    if (mode == "add" && !show) {
+        return <div></div>
     }
 
-    return <div></div>
+    return (
+        <div>
+            <Form inline noValidate validated={validated} onSubmit={handleSubmit} style={{ width: "100%" }} ref={formRef}>
+                <Form.Row className="align-items-center">
+                    <Col xs="auto">
+                        <Form.Group controlId="formName">
+                            {formName}
+                        </Form.Group>
+                    </Col>
+                    <Col xs="auto">
+                        <Form.Group controlId="formDistrict">
+                            {formDistrict}
+                        </Form.Group>
+                    </Col>
+                    <Col xs="auto">
+                        <Form.Group controlId="formPopulation">
+                            {formPopulation}
+                        </Form.Group>
+                    </Col>
+                    <Col xs="auto">
+                        <Button className="mb-4" variant="success" type="submit">
+                            Submit
+                    </Button>
+                    </Col>
+                </Form.Row>
+            </Form>
+            <p>{responseMessage}</p>
+        </div>
+    )
 }

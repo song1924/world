@@ -11,7 +11,7 @@ export const Cities = ({ country }) => {
     const [cities, setCities] = useState([]);
     const [addShow, setAddShow] = useState(false);
     const [editShow, setEditShow] = useState(false);
-    const [reloadSwitch, setReloadSwitch] = useState(false);
+    const [mutationTime, setMutationTime] = useState(false);
 
     // get cities from api
     useEffect(
@@ -39,7 +39,7 @@ population
                         setCities(data.data.cities.edges);
                     }
                 });
-        }, [country, reloadSwitch]);
+        }, [country, mutationTime]);
 
 
     // if there is no city in list, return empty div
@@ -79,11 +79,11 @@ population
         renderer: row => (
             <div>
                 <div className="App-data-buttons">
-                    <Button variant="success" id={row.id + "-edit"} onClick={() => onEditBtnClick()}><FaPencilAlt /> Edit City</Button>
+                    <Button variant="success" id={row.id + "-edit"} onClick={() => onEditBtnClick(row)}><FaPencilAlt /> Edit City</Button>
                     <Button variant="secondary" id={row.id + "-delete"} onClick={() => onDeleteBtnClick(row.id)}><FaTrashAlt /> Delete City</Button>
                 </div>
-                <div className="App-table-msg">
-                    <AddCityForm show={editShow} city={row} onClickReload={reload} />
+                <div id={row.id + "-edit-form"} className="city-edit-form"></div>
+                <div>
                     <div id={row.id + "-msg"}></div>
                 </div>
             </div>
@@ -97,14 +97,17 @@ population
     }
 
     // display/hide edit city form
-    function onEditBtnClick() {
-        setEditShow(!editShow);
+    function onEditBtnClick(row) {
+        if (document.getElementById(row.id + "-edit-form").innerHTML === "") {
+            ReactDOM.render(<AddCityForm city={row} onClickReload={reload} />, document.getElementById(row.id + "-edit-form"));
+        } else {
+            ReactDOM.render("", document.getElementById(row.id + "-edit-form"));
+        }
     }
 
     // reload table after add/edit/delete
     function reload() {
-        setReloadSwitch(!reloadSwitch);
-        setEditShow(false);
+        setMutationTime(Date.now());
     }
 
     // action for deletion
