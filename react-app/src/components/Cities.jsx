@@ -35,7 +35,9 @@ population
 
             fetch('/graphql?query=' + GET_CITIES).then(res => res.json())
                 .then(data => {
-                    setCities(data.data.cities.edges);
+                    if (data.data.cities) {
+                        setCities(data.data.cities.edges);
+                    }
                 });
         }, [country, reloadSwitch]);
 

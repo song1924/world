@@ -9,7 +9,9 @@ export const Regions = ({ continent, onClick }) => {
         () => {
             fetch('/regions/' + continent).then(res => res.json())
                 .then(data => {
-                    setRegions(data.regions);
+                    if (data.regions) {
+                        setRegions(data.regions);
+                    }
                 });
         }, [continent]);
 
