@@ -8,7 +8,9 @@ export const Continents = ({ onClick }) => {
     useEffect(
         () => {
             fetch('/continents').then(res => res.json()).then(data => {
-                setContinents(data.continents);
+                if (data.continents) {
+                    setContinents(data.continents);
+                }
             });
         }, []);
 

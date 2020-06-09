@@ -24,7 +24,9 @@ percentage
 
             fetch('/graphql?query=' + GET_LANGUAGES).then(res => res.json())
                 .then(data => {
-                    setLanguages(data.data.countryLanguages.edges);
+                    if (data.data.countryLanguages) {
+                        setLanguages(data.data.countryLanguages.edges);
+                    }
                 });
         }, [country]);
     

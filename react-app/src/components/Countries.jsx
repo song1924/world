@@ -36,7 +36,9 @@ code2
 `;
             fetch('/graphql?query=' + GET_COUNTRIES).then(res => res.json())
                 .then(data => {
-                    setCountries(data.data.countries.edges);
+                    if (data.data.countries) {
+                        setCountries(data.data.countries.edges);
+                    }
                 });
         }, [continent, region]);
 
