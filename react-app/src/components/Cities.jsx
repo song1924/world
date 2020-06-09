@@ -10,7 +10,6 @@ import ReactDOM from 'react-dom';
 export const Cities = ({ country }) => {
     const [cities, setCities] = useState([]);
     const [addShow, setAddShow] = useState(false);
-    const [editShow, setEditShow] = useState(false);
     const [mutationTime, setMutationTime] = useState(false);
 
     // get cities from api
